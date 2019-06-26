@@ -27,7 +27,7 @@ func (input *CreateNewPost) Initialize() interface{} {
 
 // IsAuthorized returns true if current user is authorized to perform this action
 func (input *CreateNewPost) IsAuthorized(ctx context.Context, user *models.User) bool {
-	return user != nil
+	return user != nil && user.IsCollaborator()
 }
 
 // Validate if current model is valid
