@@ -77,7 +77,7 @@ export default class HomePage extends React.Component<HomePageProps, HomePageSta
               style="full"
             />
             <PostInput
-              placeholder={Fider.session.tenant.invitation || "Enter your suggestion here..."}
+              placeholder={Fider.session.tenant.invitation || "Search suggestions here..."}
               onTitleChanged={this.setTitle}
             />
           </div>
