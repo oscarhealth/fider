@@ -39,6 +39,13 @@ export class PostInput extends React.Component<PostInputProps, PostInputState> {
     }
   }
 
+  private canCreatePost = () => {
+    console.log('canCreatePost, Fider.session.user', Fider.session.user);
+    return Fider.session.isAuthenticated &&
+      Fider.session.user &&
+      Fider.session.user.isCollaborator;
+  }
+
   private handleTitleFocus = () => {
     if (!Fider.session.isAuthenticated && this.title) {
       this.title.blur();
@@ -82,6 +89,7 @@ export class PostInput extends React.Component<PostInputProps, PostInputState> {
   public render() {
     const details = (
       <>
+        This is what I should remove if they don't have permissions
         <TextArea
           field="description"
           onChange={this.setDescription}
@@ -110,7 +118,7 @@ export class PostInput extends React.Component<PostInputProps, PostInputState> {
             onChange={this.setTitle}
             placeholder={this.props.placeholder}
           />
-          {this.state.title && details}
+          {this.state.title && this.canCreatePost() && details}
         </Form>
       </>
     );
