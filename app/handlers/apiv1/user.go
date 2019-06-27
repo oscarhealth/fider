@@ -9,6 +9,7 @@ import (
 	"github.com/getfider/fider/app/models/query"
 	"github.com/getfider/fider/app/pkg/bus"
 	"github.com/getfider/fider/app/pkg/errors"
+	"github.com/getfider/fider/app/pkg/log"
 	"github.com/getfider/fider/app/pkg/web"
 )
 
@@ -71,5 +72,26 @@ func CreateUser() web.HandlerFunc {
 		return c.Ok(web.Map{
 			"id": user.ID,
 		})
+	}
+}
+
+// ChangeUserRole changes given user role
+func ChangeUserRole() web.HandlerFunc {
+	return func(c *web.Context) error {
+		input := new(actions.ChangeUserRole)
+		if result := c.BindTo(input); !result.Ok {
+			return c.HandleValidation(result)
+		}
+
+		changeRole := &cmd.ChangeUserRole{
+			UserID: input.Model.UserID,
+			Role:   input.Model.Role,
+		}
+
+		if err := bus.Dispatch(c, changeRole); err != nil {
+			return c.Failure(err)
+		}
+
+		return c.Ok(web.Map{})
 	}
 }
