@@ -205,6 +205,7 @@ func routes(r *web.Engine) *web.Engine {
 		api.Use(middlewares.IsAuthorized(enum.RoleAdministrator))
 
 		api.Post("/api/v1/users", apiv1.CreateUser())
+		api.Post("/api/v1/roles/:role/users", apiv1.ChangeUserRole())
 		api.Delete("/api/v1/posts/:number", apiv1.DeletePost())
 		api.Post("/api/v1/tags", apiv1.CreateEditTag())
 		api.Put("/api/v1/tags/:slug", apiv1.CreateEditTag())
