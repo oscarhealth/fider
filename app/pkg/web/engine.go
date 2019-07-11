@@ -101,8 +101,8 @@ func (e *Engine) Start(address string) {
 	)
 
 	if env.Config.SSLCert != "" {
-		certFilePath = env.Etc(env.Config.SSLCert)
-		keyFilePath = env.Etc(env.Config.SSLCertKey)
+		certFilePath = env.Config.SSLCert
+		keyFilePath = env.Config.SSLCertKey
 	}
 
 	stdLog.SetOutput(ioutil.Discard)
